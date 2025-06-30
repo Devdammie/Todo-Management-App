@@ -12,19 +12,20 @@ import { BsFillCheckCircleFill, BsCircleFill, BsFillTrashFill } from "react-icon
 import './App.css'
 
 function Home() {
+    const url = http://localhost:3001
     const [todos, setTodos] = useState([]); // State to hold the list of todos
 
     useEffect(() => {
         // Fetch todos from the server when the component mounts
       
-        axios.get("http://localhost:3001/get")
+        axios.get("url/get")
         
             .then(result => setTodos(result.data))
             .catch(err => console.log(err));
     }, []);
 
     const handleEdit = (id) =>{
-     axios.put('http://localhost:3001/update/'+id)
+     axios.put('url/update/'+id)
     .then(result => {
       location.reload()
     })
@@ -32,7 +33,7 @@ function Home() {
     }
 
     const handleDelete = (id) =>{
-      axios.delete('http://localhost:3001/delete/'+id)
+      axios.delete('url/delete/'+id)
       .then(result => {
       location.reload()
     })
