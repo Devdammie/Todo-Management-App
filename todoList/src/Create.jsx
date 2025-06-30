@@ -8,7 +8,7 @@ function Create (){
         // Logic to add a new todo item
      //   console.log("Todo added");
    // }
-   const url = https://todo-app-backend-98n1.onrender.com
+   const url = 'https://todo-app-backend-98n1.onrender.com'
     const [task, setTask] = useState(''); // State to hold the input value
     const handleAdd = () => {
         if (task.trim() === '') {
