@@ -12,7 +12,7 @@ import { BsFillCheckCircleFill, BsCircleFill, BsFillTrashFill } from "react-icon
 import './App.css'
 
 function Home() {
-    const url = http://localhost:3001
+    const url = https://todo-app-backend-98n1.onrender.com
     const [todos, setTodos] = useState([]); // State to hold the list of todos
 
     useEffect(() => {
