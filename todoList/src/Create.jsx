@@ -8,13 +8,14 @@ function Create (){
         // Logic to add a new todo item
      //   console.log("Todo added");
    // }
+   const url = https://todo-app-backend-98n1.onrender.com
     const [task, setTask] = useState(''); // State to hold the input value
     const handleAdd = () => {
         if (task.trim() === '') {
             alert('Please enter a valid task');
             return;
         }
-        axios.post('http://localhost:3001/add', {task })
+        axios.post('url/add', {task })
             .then(response => {
                 location.reload()
                
