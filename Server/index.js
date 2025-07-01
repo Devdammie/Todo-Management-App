@@ -49,6 +49,7 @@ app.post('/add', (req, res) => {
     })
 })
 */
+/*
 app.post('/add', (req, res) => {
   const { task, priority, assignedTo } = req.body;
 
@@ -58,6 +59,33 @@ app.post('/add', (req, res) => {
       console.error('Error creating todo:', err);
       res.status(500).json({ error: 'Failed to create todo' });
     });
+});
+
+*/
+app.post('/add', async (req, res) => {
+  try {
+    const { task, priority, assignedTo } = req.body;
+
+    // Validate required fields
+    if (!task || !assignedTo) {
+      return res.status(400).json({ error: "Task and assignedTo are required." });
+    }
+
+    // Optional: validate priority
+    const validPriorities = ['High', 'Medium', 'Low'];
+    const selectedPriority = validPriorities.includes(priority) ? priority : 'Medium';
+
+    const newTodo = await TodoModel.create({
+      task,
+      assignedTo,
+      priority: selectedPriority,
+    });
+
+    res.status(201).json(newTodo);
+  } catch (err) {
+    console.error('Error creating todo:', err);
+    res.status(500).json({ error: 'Server error creating task' });
+  }
 });
 
 
