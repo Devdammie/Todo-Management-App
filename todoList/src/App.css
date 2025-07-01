@@ -1,107 +1,186 @@
-.home{
+/* ===== General Layout ===== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.home {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  padding: 2rem 1rem;
+  min-height: 100vh;
 }
 
-.create_form input{
-  width: 300px;
+/* ===== Heading ===== */
+.home h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #00695c;
+}
+
+/* ===== Create Form ===== */
+.create_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  gap: 0.8rem;
+}
+
+.create_form input,
+.create_form select {
+  width: 100%;
   padding: 10px;
-  margin: 5px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 1rem;
   outline: none;
-  font-size: 16px;
-
+  transition: border 0.3s;
 }
-.create_form button{
-  padding: 10px 15px;
-  background-color: #28a745;
-  color: rgb(73, 52, 52);
+
+.create_form input:focus,
+.create_form select:focus {
+  border-color: #00796b;
+}
+
+.create_form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #00796b;
+  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 16px;
-
+  transition: background-color 0.3s ease-in-out;
 }
 
-.task{
+.create_form button:hover {
+  background-color: #004d40;
+}
+
+/* ===== Task Cards ===== */
+.task {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 300px;
-  padding: 10px;
-  margin: 5px;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #ffffff;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f9fa;
-  color: #333;
-  height: 50px;
-  font-size: 16px;
-
+  border-left: 5px solid #00796b;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 1rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
 }
 
-
-
-.spinner {
-  color: #666;
-  font-size: 16px;
-  font-style: italic;
+.task:hover {
+  transform: translateY(-2px);
 }
 
+/* Checkbox and Text */
+.checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
 
+.icon {
+  margin-right: 10px;
+  font-size: 1.3rem;
+  color: #00796b;
+  transition: color 0.3s;
+}
+
+.checkbox .icon {
+  font-size: 1.3rem;
+}
+
+.line_through {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+/* Task Meta (priority & assignee) */
+.meta {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  gap: 4px;
+}
 
 .badge {
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 12px;
-  margin-top: 5px;
+  font-weight: bold;
   display: inline-block;
+  width: fit-content;
 }
 
 .assigned {
-  margin-top: 6px;
-  font-size: 14px;
-  color: #444;
+  font-size: 0.9rem;
+  color: #555;
 }
 
-.checkbox{
-  display: flex;
-  align-items: center;
+/* Priority Colors */
+.badge[style*="background-color: #ff4d4f"]::before {
+  content: "🔥 ";
 }
-.icon{
-  margin-right: 10px;
-  color: #28a745;
+.badge[style*="background-color: #faad14"]::before {
+  content: "⚠️ ";
 }
-.checkbox .icon{
-  color: #6c757d;
-  margin: 0 10px 0 0;
-  font-size: 1.2em;
+.badge[style*="background-color: #52c41a"]::before {
+  content: "🟢 ";
 }
-.line_through{
-  text-decoration: line-through;
-  color: #6c757d;
-  
+
+/* Trash Icon */
+.task div span {
+  margin-top: 10px;
+  text-align: right;
 }
-.task div span{
-  margin: 0 5px 0px 4px;
-  color: #6c757d;
-  font-size: 1.2em;
-}
-.task div .icon{
+
+.task div span .icon {
   color: #6c757d;
   font-size: 1.2em;
   cursor: pointer;
+  transition: color 0.3s;
 }
-.task div span:hover{
-  color: #dc3545;
-  cursor: pointer;
+
+.task div span .icon:hover {
+  color: #d32f2f;
 }
-.task div span:hover .icon{
-  color: #dc3545;
+
+/* ===== Spinner ===== */
+.spinner {
+  color: #777;
+  font-size: 1rem;
+  font-style: italic;
+  margin-top: 1rem;
+  text-align: center;
 }
-.task div span:hover .icon:hover{
-  color: #dc3545;
-  cursor: pointer;  
+
+/* ===== Responsive Design ===== */
+@media (max-width: 500px) {
+  .create_form,
+  .task {
+    width: 100%;
+    padding: 0.8rem;
+  }
+
+  .home h1 {
+    font-size: 2rem;
+  }
 }
