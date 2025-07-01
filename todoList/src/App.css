@@ -41,6 +41,31 @@
   font-size: 16px;
 
 }
+
+
+
+.spinner {
+  color: #666;
+  font-size: 16px;
+  font-style: italic;
+}
+
+
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.assigned {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #444;
+}
+
 .checkbox{
   display: flex;
   align-items: center;
@@ -61,7 +86,6 @@
 }
 .task div span{
   margin: 0 5px 0px 4px;
-
   color: #6c757d;
   font-size: 1.2em;
 }

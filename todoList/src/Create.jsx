@@ -1,111 +1,80 @@
-/*
-import React, { useEffect, useState } from 'react';
-
-import axios from 'axios';
-
-
-function Create (){
-   // const handleAdd = () => {
-        // Logic to add a new todo item
-     //   console.log("Todo added");
-   // }
-   const url = 'https://todo-app-backend-98n1.onrender.com'
-    const [task, setTask] = useState(''); // State to hold the input value
-    const handleAdd = () => {
-        if (task.trim() === '') {
-            alert('Please enter a valid task');
-            return;
-        }
-        axios.post('url/add', {task })
-            .then(response => {
-                location.reload()
-               
-            })
-            .catch(error => {
-                console.error('Error adding todo:', error);
-            });
-    };
-    return (
-        <div className='create_form'> 
-        < input  type="text" name="" id="" placeholder='Enter a text' onChange={(e) => setTask(e.target.value)} />
-        <button  type="button" onClick={handleAdd}>Add</button>
-        
-         </div>
-    )
-}
-
-export default Create
-*/
-
-/*
-import React, { useEffect, useState } from 'react';
-
-import axios from 'axios';
-
-
-function Create (){
-   // const handleAdd = () => {
-        // Logic to add a new todo item
-     //   console.log("Todo added");
-   // }
-    const [task, setTask] = useState(''); // State to hold the input value
-    const handleAdd = () => {
-        if (task.trim() === '') {
-            alert('Please enter a valid task');
-            return;
-        }
-        axios.post('http://localhost:3001/add', {task })
-            .then(response => {
-                location.reload()
-               
-            })
-            .catch(error => {
-                console.error('Error adding todo:', error);
-            });
-    };
-    return (
-        <div className='create_form'> 
-        < input  type="text" name="" id="" placeholder='Enter a text' onChange={(e) => setTask(e.target.value)} />
-        <button  type="button" onClick={handleAdd}>Add</button>
-        
-         </div>
-    )
-}
-
-export default Create
-
-*/
-
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-function Create({ url }) {
+function Create({ onAdd }) {
   const [task, setTask] = useState('');
+  const [priority, setPriority] = useState('medium');
+  const [assignedTo, setAssignedTo] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (task.trim() === '') {
-      alert('Please enter a valid task');
+      toast.warn('Task cannot be empty!');
+      return;
+    }
+    if (assignedTo.trim() === '') {
+      toast.warn('Please assign the task to someone!');
       return;
     }
 
-    axios
-      .post(`${url}/add`, { task })
-      .then(() => location.reload())
-      .catch(error => {
-        console.error('Error adding todo:', error);
+    setLoading(true);
+
+    try {
+      const response = await axios.post('https://todo-app-backend-98n1.onrender.com/add', {
+        task,
+        priority,
+        assignedTo,
       });
+      setTask('');
+      setPriority('medium');
+      setAssignedTo('');
+      toast.success('Task added!');
+      if (onAdd) onAdd(response.data);
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to add task');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="create_form">
+    <div className="flex flex-col gap-3 mt-4 p-4 border rounded-xl shadow-md bg-white">
       <input
         type="text"
-        placeholder="Enter a task"
-        onChange={(e) => setTask(e.target.value)}
+        placeholder="Enter a task..."
         value={task}
+        onChange={(e) => setTask(e.target.value)}
+        className="p-2 border border-gray-300 rounded-lg focus:outline-none"
       />
-      <button type="button" onClick={handleAdd}>
-        Add
+
+      <input
+        type="text"
+        placeholder="Assign to (e.g., John)"
+        value={assignedTo}
+        onChange={(e) => setAssignedTo(e.target.value)}
+        className="p-2 border border-gray-300 rounded-lg focus:outline-none"
+      />
+
+      <select
+        value={priority}
+        onChange={(e) => setPriority(e.target.value)}
+        className="p-2 border border-gray-300 rounded-lg focus:outline-none"
+      >
+        <option value="high">🔥 High Priority</option>
+        <option value="medium">⚠️ Medium Priority</option>
+        <option value="low">🟢 Low Priority</option>
+      </select>
+
+      <button
+        onClick={handleAdd}
+        disabled={loading}
+        className={`px-4 py-2 text-white rounded-lg ${
+          loading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
+        }`}
+      >
+        {loading ? 'Adding...' : 'Add Task'}
       </button>
     </div>
   );

@@ -36,6 +36,7 @@ app.delete('/delete/:id', (req, res) =>{
 
 })
 
+/*
 app.post('/add', (req, res) => {
     const { task } = req.body; // Extract the task from the request body
     TodoModel.create({
@@ -47,6 +48,19 @@ app.post('/add', (req, res) => {
         res.status(500).json({ error: 'Failed to create todo' });
     })
 })
+*/
+app.post('/add', (req, res) => {
+  const { task, priority, assignedTo } = req.body;
+
+  TodoModel.create({ task, priority, assignedTo })
+    .then(result => res.json(result))
+    .catch(err => {
+      console.error('Error creating todo:', err);
+      res.status(500).json({ error: 'Failed to create todo' });
+    });
+});
+
+
 
 app.listen(3001, () => {
     console.log('Server is running on port 3001')
