@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
-const url = 'https://todo-app-backend-98n1.onrender.com'; // Your deployed backend
+const url = 'https://todo-app-backend-98n1.onrender.com'; // deployed backend
 
 function Home() {
   const [todos, setTodos] = useState([]);

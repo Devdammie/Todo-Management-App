@@ -40,6 +40,7 @@ function Create({ onAdd }) {
   };
 
   return (
+    /*
     <div className="flex flex-col gap-3 mt-4 p-4 border rounded-xl shadow-md bg-white">
       <input
         type="text"
@@ -77,6 +78,35 @@ function Create({ onAdd }) {
         {loading ? 'Adding...' : 'Add Task'}
       </button>
     </div>
+    */
+
+  <div className="create_form">
+  <input
+    type="text"
+    placeholder="Enter a task..."
+    onChange={(e) => setTask(e.target.value)}
+    value={task}
+  />
+  <input
+    type="text"
+    placeholder="Assign to (e.g., John)"
+    onChange={(e) => setAssignedTo(e.target.value)}
+    value={assignedTo}
+  />
+  <select
+    value={priority}
+    onChange={(e) => setPriority(e.target.value)}
+  >
+    <option value="High">🔥 High Priority</option>
+    <option value="Medium">⚠️ Medium Priority</option>
+    <option value="Low">🟢 Low Priority</option>
+  </select>
+  <button type="button" onClick={handleAdd}>
+    {loading ? 'Adding...' : 'Add Task'}
+  </button>
+</div>
+
+
   );
 }
 
