@@ -16,8 +16,7 @@ function App() {
   return (
     <div>
      <Home />
-     
-     
+     <ToastContainer position="top-right" autoClose={2000} />
     </div>
   )
 }
